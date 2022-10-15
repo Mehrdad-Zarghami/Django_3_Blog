@@ -21,3 +21,5 @@ wheel                     0.37.1             pyhd3eb1b0_0
 wincertstore              0.2             py310haa95532_2  
 xz                        5.2.6                h8cc25b3_0  
 zlib                      1.2.12               h8cc25b3_3  
+
+django~=4.1

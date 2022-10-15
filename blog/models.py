@@ -15,5 +15,7 @@ class PostModel(models.Model):
     datetime_modified = models.DateTimeField(auto_now=True)  # a datetime that changes everytime we edit a post
     status = models.CharField(choices=SATUS_CHOISES, max_length=3)
 
+    def __str__(self):
+        return self.title
 
 
