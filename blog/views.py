@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from .models import PostModel
 
 
@@ -8,4 +9,5 @@ def post_list_view(request):
     return render(request, 'blog/posts_list.html', context=context)
 
 
-
+def post_detail_view(request, pk):
+    return HttpResponse(f"input id:{pk}")
