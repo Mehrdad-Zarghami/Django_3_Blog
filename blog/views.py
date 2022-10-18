@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from .models import PostModel
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def post_list_view(request):
@@ -10,6 +11,10 @@ def post_list_view(request):
 
 
 def post_detail_view(request, pk):
-    post = PostModel.objects.get(pk=pk)
-    context = {'post': post}
-    return render(request, 'blog/post_detail.html', context)
+    post = get_object_or_404(PostModel, pk=pk)
+    # try:
+    #     post = PostModel.objects.get(pk=pk)
+    # except ObjectDoesNotExist:
+    #     post = None
+
+    return render(request, 'blog/post_detail.html', {'post': post})
