@@ -10,4 +10,6 @@ def post_list_view(request):
 
 
 def post_detail_view(request, pk):
-    return HttpResponse(f"input id:{pk}")
+    post = PostModel.objects.get(pk=pk)
+    context = {'post': post}
+    return render(request, 'blog/post_detail.html', context)
