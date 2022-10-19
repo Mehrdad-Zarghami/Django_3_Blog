@@ -5,7 +5,8 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 def post_list_view(request):
-    posts_list = PostModel.objects.all()
+    # posts_list = PostModel.objects.all()
+    posts_list = PostModel.objects.filter(status='pub')
     context = {'posts_list': posts_list, }
     return render(request, 'blog/posts_list.html', context=context)
 
