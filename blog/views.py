@@ -19,3 +19,7 @@ def post_detail_view(request, pk):
     #     post = None
 
     return render(request, 'blog/post_detail.html', {'post': post})
+
+
+def post_create_view(request):
+    return render(request, 'blog/post_create.html')
