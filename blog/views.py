@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from .models import PostModel
+from django.contrib.auth.models import User
+from .forms import NewPostForm
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -22,4 +24,22 @@ def post_detail_view(request, pk):
 
 
 def post_create_view(request):
-    return render(request, 'blog/post_create.html')
+    if request.method == 'POST':
+        form = NewPostForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # form = NewPostForm()  # To show an empty form after submitting a form
+            return redirect('posts_list_page')  # Automatically uses reverse function
+    else:
+        form = NewPostForm()
+    return render(request, 'blog/post_create.html', context={'new_post_form': form})
+
+
+    # if request.method == "POST":
+    #     post_title = request.POST.get('title')
+    #     post_text = request.POST.get('text')
+    #
+    #     user = User.objects.all()[0]
+    #     PostModel.objects.create(title=post_title, text=post_text, author=user, status='pub')
+    #
+    # return render(request, 'blog/post_create.html')
