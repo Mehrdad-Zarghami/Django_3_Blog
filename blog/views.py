@@ -6,9 +6,9 @@ from .forms import NewPostForm
 from django.core.exceptions import ObjectDoesNotExist
 
 
-def post_list_view(request):
+def posts_list_view(request):
     # posts_list = PostModel.objects.all()
-    posts_list = PostModel.objects.filter(status='pub')
+    posts_list = PostModel.objects.filter(status='pub').order_by('-datetime_modified')
     context = {'posts_list': posts_list, }
     return render(request, 'blog/posts_list.html', context=context)
 
