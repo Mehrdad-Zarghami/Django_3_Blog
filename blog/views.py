@@ -34,7 +34,6 @@ def post_create_view(request):
         form = NewPostForm()
     return render(request, 'blog/post_create.html', context={'new_post_form': form})
 
-
     # if request.method == "POST":
     #     post_title = request.POST.get('title')
     #     post_text = request.POST.get('text')
@@ -43,3 +42,16 @@ def post_create_view(request):
     #     PostModel.objects.create(title=post_title, text=post_text, author=user, status='pub')
     #
     # return render(request, 'blog/post_create.html')
+
+
+def post_update_view(request, pk):
+    # post = PostModel.objects.get(pk=pk)
+    post = get_object_or_404(PostModel, pk=pk)
+    form = NewPostForm(request.POST or None, instance=post)  # instance --> initial values of the model-form
+    # if request.POST does not exist, the first input is None --> form = NewPostForm(instance=post)
+
+    if form.is_valid():  # only gets into this if-statement if we press the submit button--> request.method == "POST"
+        form.save()
+        return redirect('post_list_page')
+
+    return render(request, 'blog/post_create.html', context={'new_post_form': form})
