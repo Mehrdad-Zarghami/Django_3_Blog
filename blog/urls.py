@@ -6,4 +6,5 @@ urlpatterns = [
     path('<int:pk>/', views.post_detail_view, name='post_detail_page'),  # a custom integer url which its name is pk
     path('create/', views.post_create_view, name='post_create_page'),
     path('<int:pk>/update/', views.post_update_view, name='post_update_page'),
+    path('<int:pk>/delete/', views.post_delete_view, name='post_delete_page')
 ]

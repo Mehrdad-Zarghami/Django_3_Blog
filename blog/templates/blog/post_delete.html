@@ -1,0 +1,21 @@
+{% extends '_base.html' %}
+
+{% block page_title %}
+    Delete {{ post.title }}
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="card shadow-sm my-3">
+            <div class="card-body">
+                <h1>Are you sure?</h1>
+                <p>Are you sure you want to delete {{ post.title }} post permanently?</p>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-danger" value="Yes, delete">
+                    <a href="{% url 'post_detail_page' post.id %}" class="btn btn-sm btn-info">No, cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

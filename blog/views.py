@@ -55,3 +55,13 @@ def post_update_view(request, pk):
         return redirect('post_list_page')
 
     return render(request, 'blog/post_create.html', context={'new_post_form': form})
+
+
+def post_delete_view(request, pk):
+    post = get_object_or_404(PostModel, pk=pk)
+    if request.method == "POST":
+        post.delete()
+        return redirect('posts_list_page')
+
+    return render(request, 'blog/post_delete.html', context={'post': post})
+
