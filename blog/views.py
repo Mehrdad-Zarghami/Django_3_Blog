@@ -52,7 +52,7 @@ def post_update_view(request, pk):
 
     if form.is_valid():  # only gets into this if-statement if we press the submit button--> request.method == "POST"
         form.save()
-        return redirect('post_list_page')
+        return redirect('posts_list_page')
 
     return render(request, 'blog/post_create.html', context={'new_post_form': form})
 

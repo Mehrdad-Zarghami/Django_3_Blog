@@ -81,3 +81,43 @@ class TestBlogPost(TestCase):
         response = self.client.get(reverse('posts_list_page'))
         self.assertContains(response, self.post1.title),
         self.assertNotContains(response, self.post2.title)
+
+    # to check if the string representation of our post is their title or not
+    def test_PostModel_str(self):
+        post = self.post1
+        self.assertEqual(str(post), post.title)
+
+    def test_post_detail(self):
+        self.assertEqual(self.post1.title, 'Test Title1')
+        self.assertEqual(self.post1.text, 'Description for Testing Post1')
+
+    def test_post_create_view(self):
+        response = self.client.post(reverse('post_create_page'), {
+            'title': 'Some Title',
+            'text': 'This is some text!!!',
+            'status': 'pub',
+            'author': self.user1.id,
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(PostModel.objects.last().title, 'Some Title')
+        self.assertEqual(PostModel.objects.last().text, 'This is some text!!!')
+        self.assertEqual(PostModel.objects.last().status, 'pub')
+        self.assertEqual(PostModel.objects.last().author, self.user1)
+
+    def test_post_update_view(self):
+        response = self.client.post(reverse('post_update_page', args=[self.post2.id]), {
+            'title': 'Post2 --> Updated',
+            'text': 'Description for Testing Post2 --> Updated',
+            'status': 'pub',
+            'author': self.post2.author.id,
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(PostModel.objects.last().title, 'Post2 --> Updated')
+        self.assertEqual(PostModel.objects.last().text, 'Description for Testing Post2 --> Updated')
+        self.assertEqual(PostModel.objects.last().status, 'pub')
+        self.assertEqual(PostModel.objects.last().author, self.user1)
+
+    def test_post_delete_view(self):
+        response = self.client.post(reverse('post_delete_page', args=[self.post1.id]))
+        self.assertEqual(response.status_code, 302)
+
