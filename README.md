@@ -13,5 +13,5 @@ Initialization --> in terminal:
 5. python manage.py migrate --> the default migrations that allow us to create superuser
 
 6. python manage.py createsuperuser --> create a superuser that have access to the admin panel
-7. 
 
+Lets find a way to get the most of this life
